@@ -2,6 +2,7 @@ import { useState } from "react";
 import { User } from "@/types/user";
 import ExcelImport from "@/components/ExcelImport";
 import UserTable from "@/components/UserTable";
+import { Button } from "@/components/ui/button";
 import { Package } from "lucide-react";
 
 const Index = () => {
@@ -9,6 +10,10 @@ const Index = () => {
 
   const handleImport = (importedUsers: User[]) => {
     setUsers(importedUsers);
+  };
+
+  const handleClear = () => {
+    setUsers([]);
   };
 
   return (
@@ -30,8 +35,13 @@ const Index = () => {
         </header>
 
         {/* Import Section */}
-        <div className="mb-8">
+        <div className="mb-8 flex gap-4">
           <ExcelImport onImport={handleImport} />
+          {users.length > 0 && (
+            <Button onClick={handleClear} variant="outline" className="gap-2">
+              Очистить таблицу
+            </Button>
+          )}
         </div>
 
         {/* Table Section */}

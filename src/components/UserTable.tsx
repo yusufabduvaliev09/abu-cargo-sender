@@ -11,7 +11,7 @@ interface UserTableProps {
 const UserTable = ({ users }: UserTableProps) => {
   const generateWhatsAppLink = (phone: string, password: string) => {
     const cleanPhone = phone.replace(/\D/g, '');
-    const message = `Ассалому алейкум! Сизнинг номерингиз: ${phone} Сизнинг паролингиз: ${password}`;
+    const message = `Ассаламу алейкум 🙌\nСизнинг номерингиз: ${phone}\nСизнинг паролингиз: ${password}`;
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   };
