@@ -12,10 +12,10 @@ const UserTable = ({ users }: UserTableProps) => {
   const generateWhatsAppLink = (phone: string, password: string) => {
     const cleanPhone = phone.replace(/\D/g, '');
     const message = `Ассаламу алейкум
-Сизнинг номерингиз${phone}
-Сизнинг паролингиз${password}
-Ваш номер${phone}
-Ваш пароль${password}
+Сизнинг номерингиз:${phone}
+Сизнинг паролингиз:${password}
+Ваш номер:${phone}
+Ваш пароль:${password}
 Шу сайтга киринг:
 https://abucargo-osh.netlify.app
 AbuCargo - карго из Китая🇨🇳 в Кыргызстан🇰🇬`;
