@@ -11,7 +11,14 @@ interface UserTableProps {
 const UserTable = ({ users }: UserTableProps) => {
   const generateWhatsAppLink = (phone: string, password: string) => {
     const cleanPhone = phone.replace(/\D/g, '');
-    const message = `Ассаламу алейкум 🙌\nСизнинг номерингиз: ${phone}\nСизнинг паролингиз: ${password}`;
+    const message = `Ассаламу алейкум
+Сизнинг номерингиз(${phone})
+Сизнинг паролингиз(${password})
+Ваш номер(${phone})
+Ваш пароль(${password})
+Шу сайтга киринг:
+https://abucargo-osh-74035.vercel.app
+AbuCargo - карго из Китая🇨🇳 в Кыргызстан🇰🇬`;
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   };
