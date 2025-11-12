@@ -2,7 +2,8 @@ import { User } from "@/types/user";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MessageCircle, User as UserIcon, Phone, Lock } from "lucide-react";
+import { MessageCircle, User as UserIcon, Phone, Lock, Send } from "lucide-react";
+import { toast } from "sonner";
 
 interface UserTableProps {
   users: User[];
@@ -23,6 +24,28 @@ AbuCargo - карго из Китая🇨🇳 в Кыргызстан🇰🇬`;
     return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   };
 
+  const handleSendToAll = async () => {
+    toast.info(`Начинаем отправку ${users.length} сообщений...`);
+    
+    for (let i = 0; i < users.length; i++) {
+      const user = users[i];
+      const link = generateWhatsAppLink(user.phone, user.password);
+      
+      // Открываем WhatsApp чат
+      window.open(link, '_blank');
+      
+      // Показываем прогресс
+      toast.info(`Открыт чат ${i + 1} из ${users.length}: ${user.name}`);
+      
+      // Ждем 3 секунды перед следующим
+      if (i < users.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+    }
+    
+    toast.success('Все чаты открыты! Нажмите "Отправить" в каждом чате.');
+  };
+
   if (users.length === 0) {
     return (
       <Card className="shadow-[var(--shadow-soft)]">
@@ -37,10 +60,21 @@ AbuCargo - карго из Китая🇨🇳 в Кыргызстан🇰🇬`;
   return (
     <Card className="shadow-[var(--shadow-medium)]">
       <CardHeader className="border-b bg-secondary/30">
-        <CardTitle className="text-xl flex items-center gap-2">
-          <UserIcon className="h-5 w-5" />
-          Список пользователей ({users.length})
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <UserIcon className="h-5 w-5" />
+            Список пользователей ({users.length})
+          </CardTitle>
+          {users.length > 0 && (
+            <Button
+              onClick={handleSendToAll}
+              className="bg-whatsapp hover:bg-whatsapp/90 text-whatsapp-foreground gap-2"
+            >
+              <Send className="h-4 w-4" />
+              Отправить всем в WhatsApp
+            </Button>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="p-0">
         <div className="overflow-x-auto">
