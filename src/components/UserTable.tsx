@@ -17,7 +17,7 @@ const UserTable = ({ users }: UserTableProps) => {
 Ваш номер:${phone}
 Ваш пароль:${password}
 Шу сайтга киринг:
-https://abucargo-osh.netlify.app
+https://abucargoosh.netlify.app
 AbuCargo - карго из Китая🇨🇳 в Кыргызстан🇰🇬`;
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
